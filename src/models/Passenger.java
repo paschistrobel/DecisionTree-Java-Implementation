@@ -112,13 +112,14 @@ public class Passenger {
     }
 
     private int age_2_category(String age){
-        int ageNumber;
+        double ageNumber;
         if (age != null) {
-             ageNumber = Integer.parseInt(age);
+             ageNumber = Double.parseDouble(age);
         } else {
             return 6;
         }
 
+        if (ageNumber == 0) return 7;
         if (ageNumber <= 5) return 0;
         if (ageNumber <= 17) return 1;
         if (ageNumber <= 29) return 2;
