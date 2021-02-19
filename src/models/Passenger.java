@@ -1,96 +1,85 @@
 package models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Passenger {
+
     /**unique Passenger ID*/
-    private int passengerID;
-
-    /**
-     0 = not survived
-     1 = survived
-    */
-    private int survived;
-
-    /**
-     Price Class, categories:
-     1 = 1
-     2 = 2
-     3 = 3
-    */
-    private int pClass;
-
-    /**
-    Title (extracted from name Attribute!):
-     0 = Mr
-     1 = Master
-     2 = Mrs, Mme
-     3 = Miss, Mlle, Ms
-     4 = Other (Lady, Countess, Capt, Col, Don, Dr, Major, Rev, Sir, Jonkheer, Dona)
-    */
-    private int title;
-
-    /**
-     0 = male
-     1 = female
-    */
-    private int sex;
-
-    /** age organized in age groups
-     0 = 0-5 years (inclusive)
-     1 = 6-17 years (inclusive)
-     2 = 18-29 years (inclusive)
-     3 = 30-49 years (inclusive)
-     4 = 50-64 years (inclusive)
-     5 = >=65 years
-    */
-    private int ageGroup;
-
-    /**
-     Number of siblings/ spouses on board
-     0 = no siblings/ spouses
-     1 = 1 sibling/ spouse
-     2 = >1 siblings/ spouses
-    */
-    private int sibSp;
-
-    /**
-     Number of parents/ children on board
-     0 = no parent/ child
-     1 = 1 parent/ child
-     2 = >1 parents/ children
-    */
-    private int parch;
-
-    /**
-     Number of siblings/ spouses on board
-     0 = no siblings/ spouses
-     1 = 1 sibling/ spouse
-     2 = >1 sibling/ spouse
-    */
-    private int fare;
-
-    /**
-     Embarked (= Zustiegs-ort)
-     0 = C
-     1 = Q
-     2 = S
-     --> missing values are assigned with most frequent value
-    */
-    private int embarked;
+    private int id;
+    /**Map with all attributes*/
+    private Map<String, Integer> attributes;
 
     /**
     Constructor
     */
     public Passenger(String id, String survived, String pClass, String name, String sex, String age, String sibSp, String parch, String fare, String embarked){
-        this.passengerID = Integer.valueOf(id);
-        this.survived = survived_2_category(survived);
-        this.pClass = pClass_2_category(pClass);
-        this.title = name_2_category(name);
-        this.sex = sex_2_category(sex);
-        this.ageGroup = age_2_category(age);
-        this.sibSp = sibSp_2_category(sibSp);
-        this.parch = parch_2_category(parch);
-        this.fare = fare_2_category(fare);
-        this.embarked = embarked_2_category(embarked);
+        this.id = Integer.parseInt(id);
+        attributes = new HashMap<>();
+        /**
+         0 = not survived
+         1 = survived
+         */
+        attributes.put(Attribute.SURVIVED, survived_2_category(survived));
+        /**
+         Price Class, categories:
+         1 = 1
+         2 = 2
+         3 = 3
+         */
+        attributes.put(Attribute.PCLASS, pClass_2_category(pClass));
+        /**
+         Title (extracted from name models.Attribute!):
+         0 = Mr
+         1 = Master
+         2 = Mrs, Mme
+         3 = Miss, Mlle, Ms
+         4 = Other (Lady, Countess, Capt, Col, Don, Dr, Major, Rev, Sir, Jonkheer, Dona)
+         */
+        attributes.put(Attribute.TITLE, name_2_category(name));
+        /**
+         0 = male
+         1 = female
+         */
+        attributes.put(Attribute.SEX, sex_2_category(sex));
+        /** age organized in age groups
+         0 = 0-5 years (inclusive)
+         1 = 6-17 years (inclusive)
+         2 = 18-29 years (inclusive)
+         3 = 30-49 years (inclusive)
+         4 = 50-64 years (inclusive)
+         5 = >=65 years
+         */
+        attributes.put(Attribute.AGEGROUP, age_2_category(age));
+        /**
+         Number of siblings/ spouses on board
+         0 = no siblings/ spouses
+         1 = 1 sibling/ spouse
+         2 = >1 siblings/ spouses
+         */
+        attributes.put(Attribute.SIBSP, sibSp_2_category(sibSp));
+        /**
+         Number of parents/ children on board
+         0 = no parent/ child
+         1 = 1 parent/ child
+         2 = >1 parents/ children
+         */
+        attributes.put(Attribute.PARCH, parch_2_category(parch));
+        /**
+         Number of siblings/ spouses on board
+         0 = no siblings/ spouses
+         1 = 1 sibling/ spouse
+         2 = >1 sibling/ spouse
+         */
+        attributes.put(Attribute.FARE, fare_2_category(fare));
+        /**
+         Embarked (= Zustiegs-ort)
+         0 = C
+         1 = Q
+         2 = S
+         --> missing values are assigned with most frequent value
+         */
+        attributes.put(Attribute.EMBARKED, embarked_2_category(embarked));
     }
 
     /**
@@ -128,39 +117,34 @@ public class Passenger {
     /**
     Getter methods
      */
-    public int getPassengerID() {
-        return passengerID;
+    public int getAttributeValue(String attribute){
+        return attributes.get(attribute);
     }
-
+    public int getID() {
+        return this.id;
+    }
     public int getSurvived() {
-        return survived;
+        return attributes.get(Attribute.SURVIVED);
     }
-
     public int getpClass() {
-        return pClass;
+        return attributes.get(Attribute.PCLASS);
     }
-
     public int getTitle() {
-        return title;
+        return attributes.get(Attribute.TITLE);
     }
-
     public int getSex() {
-        return sex;
+        return attributes.get(Attribute.SEX);
     }
-
     public int getSibSp() {
-        return sibSp;
+        return attributes.get(Attribute.SIBSP);
     }
-
     public int getParch() {
-        return parch;
+        return attributes.get(Attribute.PARCH);
     }
-
     public int getFare() {
-        return fare;
+        return attributes.get(Attribute.FARE);
     }
-
     public int getEmbarked() {
-        return embarked;
+        return attributes.get(Attribute.EMBARKED);
     }
 }
