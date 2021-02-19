@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\out\production\DecisionTree_Implementation\data\test.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\data\test.csv">
           <value>
             <Attribute>
