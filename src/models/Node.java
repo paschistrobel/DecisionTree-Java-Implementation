@@ -1,6 +1,7 @@
 package models;
 import models.Conditions.Condition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
@@ -15,4 +16,28 @@ public class Node {
     //private List<Node>
     private List<Condition> conditions;
 
+    public Node(){
+        conditions = new ArrayList<>();
+        isLeaf = false;
+    }
+
+    public void addCondition(Condition c){
+        this.conditions.add(c);
+    }
+
+    public void setLeaf(boolean leaf){
+        this.isLeaf = leaf;
+    }
+
+    public boolean isLeaf(){
+        return this.isLeaf;
+    }
+
+    public void setLabel(String label){
+        this.label = label;
+    }
+
+    public String getLabel(){
+        return this.label;
+    }
 }

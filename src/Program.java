@@ -1,10 +1,7 @@
-import models.CSV_Helper;
 import models.DecisionTree;
 import models.Passenger;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Set;
 
 /** So sollte das Programm aussehen:
@@ -23,8 +20,11 @@ public class Program {
         final String targetAttribute = "Survived";
 
         // Read CSV train data
-        String trainData_path = "E:\\Studium\\5. Semester\\Informationswissenschaft\\Repräsentation und Verarbeitung\\Projekt\\DecisionTree_Implementierung\\DecisionTree_Implementation\\src\\data\\train.csv";
+
+
+        String trainData_path = "src/data/train.csv";
         Set<Passenger> trainData = CSV_Helper.readTrainData(trainData_path);
+        System.out.println(trainData.size());
 
         DecisionTree decisionTree = new DecisionTree();
         // decisionTree.train(data, attributes);

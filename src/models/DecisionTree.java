@@ -8,13 +8,31 @@ public class DecisionTree {
 
     }
 
-    public void train(Set<Passenger> passengers, String targetAttribute, String[] attributes){
-        if(allPositive(passengers, targetAttribute)) return;
-        else if(allNegative(passengers, targetAttribute)) return;
-        else if(attributes.length == 0) return;
+    public void train(Node root, Set<Passenger> passengers, String targetAttribute, String[] attributes){
+        if(allPositive(passengers, targetAttribute)){
+            root.setLabel("1");
+            root.setLeaf(true);
+            return;
+        }
+        else if(allNegative(passengers, targetAttribute)){
+            root.setLabel("0");
+            root.setLeaf(true);
+            return;
+        }
+        else if(attributes.length == 0){
+            //root.setLabel(mcv(targetAttribute));
+            return;
+        }
         else{
             String bestAttribute = getBestSplit();
-
+            /*
+            * for each possible Value v from bestAttribute:
+            *   Node child = new Node();
+            *   root
+            *   Set<Passenger> = new Hashset<>(); // Teilmenge für cv erstellen
+            *   if()
+            *
+            * */
         }
 
         // if examples[survived] !contains(false) --> alle Examples positiv --> return root, Label = +
@@ -56,7 +74,7 @@ public class DecisionTree {
         return true;
     }
 
-    private int mcv(){
+    private int mcv(String targetAttribute){
         return 0;
     }
 
