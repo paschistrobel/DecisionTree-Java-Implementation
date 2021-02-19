@@ -81,7 +81,7 @@ public class Passenger {
     Constructor
     */
     public Passenger(String id, String survived, String pClass, String name, String sex, String age, String sibSp, String parch, String fare, String embarked){
-        this.passengerID = Integer.valueOf(id);
+        this.passengerID = Integer.parseInt(id); // parseInt statt valueOf, weil valueOf ein Integer Objekt zurückgibt
         this.survived = survived_2_category(survived);
         this.pClass = pClass_2_category(pClass);
         this.title = name_2_category(name);
@@ -97,31 +97,75 @@ public class Passenger {
     Conversion methods
     */
     private int survived_2_category(String survived){
-        return 0;
+        return Integer.parseInt(survived);
     }
+
     private int pClass_2_category(String pClass){
-        return 0;
+        return Integer.parseInt(pClass);
     }
+
     private int name_2_category(String name){
-        return 0;
+        if (name.contains("Mr.")) return 0;
+        if (name.contains("Master.")) return 1;
+        if (name.contains("Mrs.") || name.contains("Mme.")) return 2;
+        if (name.contains("Miss.") || name.contains("Mlle.") || name.contains("Ms.")) return 3;
+        else return 4;
     }
+
     private int sex_2_category(String sex){
-        return 0;
+        if (sex.equals("male")) {
+            return 0;
+        }
+        /*if (sex.equals("female")) {
+            return 1;
+        }*/
+        else return 1;
     }
+
     private int age_2_category(String age){
-        return 0;
+        int ageNumber;
+        if (age != null) {
+             ageNumber = Integer.parseInt(age);
+        } else {
+            return 6;
+        }
+
+        if (ageNumber <= 5) return 0;
+        if (ageNumber <= 17) return 1;
+        if (ageNumber <= 29) return 2;
+        if (ageNumber <= 49) return 3;
+        if (ageNumber <= 64) return 4;
+        if (ageNumber > 65) return 5;
+        return 6;
     }
+
     private int sibSp_2_category(String sibSp){
-        return 0;
+        int number = Integer.parseInt(sibSp);
+        if (number > 1) return 2;
+        return number;
     }
+
     private int parch_2_category(String parch){
-        return 0;
+        int number = Integer.parseInt(parch);
+        if (number > 1) return 2;
+        return number;
     }
+
     private int fare_2_category(String fare){
-        return 0;
+        double number = Double.parseDouble(fare);
+        if (number <= 7.91) return 0;
+        if (number <= 14.454) return 1;
+        if (number <= 31) return 2;
+        else return 3;
     }
+
     private int embarked_2_category(String embarked){
-        return 0;
+        switch (embarked) {
+            case "C": return 0;
+            case "Q": return 1;
+            case "S": return 2;
+            default: return 2;
+        }
     }
 
 
