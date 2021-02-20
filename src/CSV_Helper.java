@@ -12,7 +12,6 @@ Helper class for reading data from the csv files
 */
 public class CSV_Helper {
     public static Set<Passenger> readTrainData(String filePath){
-
         Set<Passenger> trainData = new HashSet<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line = br.readLine(); // remove first heading line

@@ -112,9 +112,15 @@ public class Passenger {
     }
 
     private int age_2_category(String age){
+<<<<<<< Updated upstream
         double ageNumber;
         if (age != null) {
              ageNumber = Double.parseDouble(age);
+=======
+        int ageNumber;
+        if (!age.isEmpty()) {
+             ageNumber = Integer.parseInt(age);
+>>>>>>> Stashed changes
         } else {
             return 6;
         }

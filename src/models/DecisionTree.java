@@ -1,60 +1,70 @@
 package models;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class DecisionTree {
 
-    public DecisionTree(){
+    private String targetAttribute;
+    private Node rootNode;
+    private String [] attributeList;
 
+    public DecisionTree(String targetAttribute, String [] attributeList){
+        this.rootNode = new Node();
+        this.targetAttribute = targetAttribute;
+        this.attributeList = attributeList;
     }
 
-    public void train(Node root, Set<Passenger> passengers, String targetAttribute, String[] attributes){
+    public void train(Set<Passenger> data){
+        train(this.rootNode, data, this.targetAttribute, this.attributeList);
+    }
+
+    // Overload method
+    public Node train(Node node, Set<Passenger> passengers, String targetAttribute, String[] attributes){
         if(allPositive(passengers, targetAttribute)){
-            root.setLabel("1");
-            root.setLeaf(true);
-            return;
+            node.setLabel("survived");
+            node.setLeaf(true);
+            return node;
         }
         else if(allNegative(passengers, targetAttribute)){
-            root.setLabel("0");
-            root.setLeaf(true);
-            return;
+            node.setLabel("not survived");
+            node.setLeaf(true);
+            return node;
         }
         else if(attributes.length == 0){
-            //root.setLabel(mcv(targetAttribute));
-            return;
+            node.setLabel(mcv(passengers));
+            node.setLeaf(true);
+            return node;
         }
         else{
-            String bestAttribute = getBestSplit();
-            /*
-            * for each possible Value v from bestAttribute:
-            *   Node child = new Node();
-            *   root
-            *   Set<Passenger> = new Hashset<>(); // Teilmenge für cv erstellen
-            *   if()
-            *
-            * */
+            /*String bestAttribute = getBestSplit();
+            int [] possibleValues = getPossibleValues();
+            for(int pv : possibleValues){
+                Node childNode = new Node();
+                Condition condition = new Condition(pv);
+                condition.setSuccessor(childNode);
+                node.addCondition(condition);
+                Set<Passenger> subset = createSubset();
+                if(subset.isEmpty()){
+                    childNode.setLeaf(true);
+                    childNode.setLabel(mcv(passengers));
+                    return childNode;
+                }
+                else{
+                    String [] attr = removeAttribute
+                    return train(childNode, subset, this.targetAttribute, );
+                }
+            }*/return null;
         }
-
-        // if examples[survived] !contains(false) --> alle Examples positiv --> return root, Label = +
-        // else if examples[survived] !contains(true) --> alle Examples negativ --> return root, Label = -
-        // else if attributes.length == 0 --> return root, label = mcv(targetAttribute)
-        // else
-        /*String bestAttribute = getBestSplit(attributes)
-        *root.setLabel(bestAttribute)
-        *for each possible Value v (z.B. male, female) in bestAttribute-spalte
-        *   create new child node für aktuellen Knoten
-        *   Teilmenge von examples, das den Wert v hat
-        *   if (teilmenge == empty) erzeuge leafnode mit Label mcv(targetAttribute)
-        *   else train(teilmenge von examples, targetAttribute, übrige models.Attribute)
-        * */
     }
 
-    // checks whether the set is homogeneous with regard to an attribute
-    private boolean allPositive(Set<Passenger> set, String attribute){
-        Object [] o = set.toArray();
+    private boolean allPositive(Set<Passenger> data, String attribute){
+        Object [] dataArr = data.toArray();
         Passenger p;
-        for (int i = 0; i < o.length; i++){
-            p = (Passenger) o[i];
+        for (int i = 0; i < dataArr.length; i++){
+            p = (Passenger) dataArr[i];
             if(p.getAttributeValue(attribute) == 0){
                 return false;
             }
@@ -62,11 +72,11 @@ public class DecisionTree {
         return true;
     }
 
-    private boolean allNegative(Set<Passenger> set, String attribute){
-        Object [] o = set.toArray();
+    private boolean allNegative(Set<Passenger> data, String attribute){
+        Object [] dataArr = data.toArray();
         Passenger p;
-        for (int i = 0; i < o.length; i++){
-            p = (Passenger) o[i];
+        for (int i = 0; i < dataArr.length; i++){
+            p = (Passenger) dataArr[i];
             if(p.getAttributeValue(attribute) == 1){
                 return false;
             }
@@ -74,8 +84,20 @@ public class DecisionTree {
         return true;
     }
 
-    private int mcv(String targetAttribute){
-        return 0;
+    // Mehrheitsentscheidung für denjenigen Attributwert des targetAttributes mit der Mehrzahl an Beispielen im Datensatz data
+    private String mcv(Set<Passenger> data){
+        Object[] dataArr = data.toArray();
+        Map<Integer, Integer> valueCount = new HashMap<>();
+        Passenger p;
+        for(int i = 0; i < dataArr.length; i++){
+            p = (Passenger) dataArr[i];
+            valueCount.merge(p.getAttributeValue(this.targetAttribute), 1, Integer::sum);
+        }
+        int maxValue = Collections.max(valueCount.entrySet(), Map.Entry.comparingByValue()).getKey();
+        if(maxValue == 0){
+            return "not survived";
+        }
+        return "Survived";
     }
 
     private String getBestSplit(){

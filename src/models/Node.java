@@ -1,5 +1,4 @@
 package models;
-import models.Conditions.Condition;
 
 import java.util.ArrayList;
 import java.util.List;
