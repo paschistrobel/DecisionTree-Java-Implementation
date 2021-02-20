@@ -1,7 +1,4 @@
 import models.*;
-import org.w3c.dom.Attr;
-
-import java.io.File;
 import java.util.*;
 
 /** So sollte das Programm aussehen:
