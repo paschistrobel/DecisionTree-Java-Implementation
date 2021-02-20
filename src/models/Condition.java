@@ -19,4 +19,8 @@ public class Condition {
     public void setSuccessor(Node successor){
         this.successor = successor;
     }
+
+    public Node getSuccessor(){
+        return this.successor;
+    }
 }

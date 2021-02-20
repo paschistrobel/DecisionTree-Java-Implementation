@@ -1,11 +1,8 @@
-import models.Attribute;
-import models.DecisionTree;
-import models.Passenger;
+import models.*;
 import org.w3c.dom.Attr;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /** So sollte das Programm aussehen:
  * DecisionTree tree = new DecisionTree();
@@ -18,7 +15,6 @@ import java.util.Set;
  */
 public class Program {
     public static void main(String [] args){
-
         String [] attributes = {
                 Attribute.PCLASS,
                 Attribute.TITLE,
@@ -28,15 +24,32 @@ public class Program {
                 Attribute.PARCH,
                 Attribute.FARE,
                 Attribute.EMBARKED};
-
-
         // Read CSV train data
         String trainData_path = "src/data/train.csv";
         Set<Passenger> trainData = CSV_Helper.readTrainData(trainData_path);
-        //System.out.println(trainData.size());
+
+
+        /*Eingelesene Daten ausgeben lassen
+        System.out.println("Anzahl Passagiere: " + trainData.size());
+        Object [] d = trainData.toArray();
+        Passenger p;
+        for(int i = 0; i < trainData.size(); i++){
+            p = (Passenger) d[i];
+            System.out.println("id: " + p. getID() +
+                    "\tsurv: " + p.getSurvived() +
+                    "\tpclass: " + p.getpClass()+
+                    "\ttitle: " + p.getTitle() +
+                    "\tsex: " + p.getSex()+
+                    "\tage: " + p.getAgeGroup() +
+                    "\tSibsp: " + p.getSibSp()+
+                    "\tParch: " + p.getParch() +
+                    "\tFare: " + p.getFare()+
+                    "\tEmba: " + p.getEmbarked());
+        }*/
+        //System.out.println(mcv(trainData, Attribute.EMBARKED));
 
         DecisionTree decisionTree = new DecisionTree(Attribute.SURVIVED, attributes);
+        decisionTree.train(trainData);
         //decisionTree.train(trainData);
     }
-
 }

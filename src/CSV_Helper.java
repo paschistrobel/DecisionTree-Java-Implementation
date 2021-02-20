@@ -1,7 +1,5 @@
 import models.Passenger;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
@@ -17,11 +15,11 @@ public class CSV_Helper {
             String line = br.readLine(); // remove first heading line
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
-                for (int i = 0; i < values.length; i++) {
+                /*for (int i = 0; i < values.length; i++) {
                     if (values[i].equals("")) {
                         values[i] = "0";
                     }
-                }
+                }*/
                 try{
                     Passenger p = new Passenger(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
                     trainData.add(p);

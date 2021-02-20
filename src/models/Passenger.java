@@ -77,7 +77,7 @@ public class Passenger {
          0 = C
          1 = Q
          2 = S
-         --> missing values are assigned with most frequent value
+         --> missing values were assigned with most frequent value (S)
          */
         attributes.put(Attribute.EMBARKED, embarked_2_category(embarked));
     }
@@ -95,9 +95,9 @@ public class Passenger {
 
     private int name_2_category(String name){
         if (name.contains("Mr.")) return 0;
-        if (name.contains("Master.")) return 1;
-        if (name.contains("Mrs.") || name.contains("Mme.")) return 2;
-        if (name.contains("Miss.") || name.contains("Mlle.") || name.contains("Ms.")) return 3;
+        else if (name.contains("Master.")) return 1;
+        else if (name.contains("Mrs.") || name.contains("Mme.")) return 2;
+        else if (name.contains("Miss.") || name.contains("Mlle.") || name.contains("Ms.")) return 3;
         else return 4;
     }
 
@@ -105,34 +105,23 @@ public class Passenger {
         if (sex.equals("male")) {
             return 0;
         }
-        /*if (sex.equals("female")) {
-            return 1;
-        }*/
         else return 1;
     }
 
-    private int age_2_category(String age){
-<<<<<<< Updated upstream
-        double ageNumber;
-        if (age != null) {
-             ageNumber = Double.parseDouble(age);
-=======
-        int ageNumber;
+    private int age_2_category(String age) {
+        double ageDouble;
         if (!age.isEmpty()) {
-             ageNumber = Integer.parseInt(age);
->>>>>>> Stashed changes
-        } else {
-            return 6;
+            ageDouble = Double.parseDouble(age);
+            int ageNumber = (int) ageDouble;
+            //if (ageNumber == 0) return 7;
+            if (ageNumber <= 5) return 0;
+            else if (ageNumber <= 17) return 1;
+            else if (ageNumber <= 29) return 2;
+            else if (ageNumber <= 49) return 3;
+            else if (ageNumber <= 64) return 4;
+            else if (ageNumber > 65) return 5;
         }
-
-        if (ageNumber == 0) return 7;
-        if (ageNumber <= 5) return 0;
-        if (ageNumber <= 17) return 1;
-        if (ageNumber <= 29) return 2;
-        if (ageNumber <= 49) return 3;
-        if (ageNumber <= 64) return 4;
-        if (ageNumber > 65) return 5;
-        return 6;
+        return 6; // no age given
     }
 
     private int sibSp_2_category(String sibSp){
@@ -150,8 +139,8 @@ public class Passenger {
     private int fare_2_category(String fare){
         double number = Double.parseDouble(fare);
         if (number <= 7.91) return 0;
-        if (number <= 14.454) return 1;
-        if (number <= 31) return 2;
+        else if (number <= 14.454) return 1;
+        else if (number <= 31) return 2;
         else return 3;
     }
 
@@ -185,6 +174,9 @@ public class Passenger {
     }
     public int getSex() {
         return attributes.get(Attribute.SEX);
+    }
+    public int getAgeGroup(){
+        return attributes.get(Attribute.AGEGROUP);
     }
     public int getSibSp() {
         return attributes.get(Attribute.SIBSP);
