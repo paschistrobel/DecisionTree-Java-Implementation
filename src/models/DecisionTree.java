@@ -17,6 +17,10 @@ public class DecisionTree {
         // Map that contains all possible Values for each attribute
     }
 
+    public Node getRootNode(){
+        return this.rootNode;
+    }
+
     /**
      * Methods for training the decision tree
      * */
@@ -165,8 +169,32 @@ public class DecisionTree {
     /**
      * Print the trained decision tree
      * */
-    private void print(){
+    public void print(){
+        Queue<Node> q = new LinkedList();
+        Queue<Node> q2 = new LinkedList();
+        q.add(rootNode);
+        Node curr;
+        Node br = new Node();
+        br.setLabel(" | ");
+        List<Condition> branches;
+        while(!q.isEmpty() || !q2.isEmpty()){
+            while(!q.isEmpty()){
+                curr = q.poll();
+                branches = curr.getConditions();
+                System.out.print(curr.getLabel() + "");
 
+                for(Condition branch : branches){
+                    q2.add(branch.getSuccessor());
+                    System.out.print(branch.getCompareValue());
+                }
+                if(branches.size() != 0) q2.add(br);
+            }
+            System.out.println();
+            while(!q2.isEmpty()){
+                q.add(q2.poll());
+            }
+
+        }
     }
 
 
@@ -178,4 +206,5 @@ public class DecisionTree {
     public String classify(Passenger passenger){
         return null;
     }
+
 }

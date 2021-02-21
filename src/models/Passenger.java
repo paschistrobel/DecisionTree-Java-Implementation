@@ -105,7 +105,7 @@ public class Passenger {
         if (sex.equals("male")) {
             return 0;
         }
-        else return 1;
+        else return 1; // female
     }
 
     private int age_2_category(String age) {
@@ -152,7 +152,6 @@ public class Passenger {
             default: return 2;
         }
     }
-
 
     /**
     Getter methods

@@ -24,8 +24,8 @@ public class Node {
         this.conditions.add(c);
     }
 
-    public Condition getCondition(){
-        return conditions.get(0);
+    public List<Condition> getConditions(){
+        return this.conditions;
     }
 
     public void setLeaf(boolean leaf){

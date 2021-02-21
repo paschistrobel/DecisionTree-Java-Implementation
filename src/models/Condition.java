@@ -12,7 +12,11 @@ public class Condition {
         this.compareValue = value;
     }
 
-    private boolean check(int value){
+    public int getCompareValue(){
+        return this.compareValue;
+    }
+
+    public boolean check(int value){
         return compareValue == value;
     }
 

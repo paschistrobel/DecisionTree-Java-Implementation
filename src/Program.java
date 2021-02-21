@@ -24,8 +24,6 @@ public class Program {
         // Read CSV train data
         String trainData_path = "src/data/train.csv";
         Set<Passenger> trainData = CSV_Helper.readTrainData(trainData_path);
-
-
         /*Eingelesene Daten ausgeben lassen
         System.out.println("Anzahl Passagiere: " + trainData.size());
         Object [] d = trainData.toArray();
@@ -43,10 +41,11 @@ public class Program {
                     "\tFare: " + p.getFare()+
                     "\tEmba: " + p.getEmbarked());
         }*/
-        //System.out.println(mcv(trainData, Attribute.EMBARKED));
 
         DecisionTree decisionTree = new DecisionTree(Attribute.SURVIVED, attributes);
         decisionTree.train(trainData);
+
+        decisionTree.print();
         //decisionTree.train(trainData);
     }
 }
