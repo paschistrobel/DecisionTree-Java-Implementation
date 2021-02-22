@@ -110,10 +110,6 @@ public class DecisionTree {
         return null;
     }
 
-    private int [] getPossibleValues(){
-        return null;
-    }
-
     // creates a subset from a set with all Elements that have value as their attribute value
     private Set<Passenger> createSubset(Set<Passenger> prevSet, String attribute, int value){
         Set<Passenger> subset = new HashSet<>();

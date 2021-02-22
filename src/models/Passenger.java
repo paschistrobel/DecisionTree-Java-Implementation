@@ -148,7 +148,6 @@ public class Passenger {
         switch (embarked) {
             case "C": return 0;
             case "Q": return 1;
-            case "S": return 2;
             default: return 2;
         }
     }
