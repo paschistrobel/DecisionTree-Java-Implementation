@@ -44,8 +44,6 @@ public class Program {
 
         DecisionTree decisionTree = new DecisionTree(Attribute.SURVIVED, attributes);
         decisionTree.train(trainData);
-
         decisionTree.print();
-        //decisionTree.train(trainData);
     }
 }

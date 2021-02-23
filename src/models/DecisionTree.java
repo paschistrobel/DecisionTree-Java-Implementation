@@ -33,22 +33,24 @@ public class DecisionTree {
 
     // Overload method
     public void train(Node node, Set<Passenger> passengers, String targetAttribute, String[] attributes){
-        //System.out.println("durchlauf");
+        /**Abbruch-/ Endbedingungen*/
         if(allPositive(passengers, targetAttribute)){ // if all passengers from the set survived
             node.setLabel("1");
             node.setLeaf(true);
+            return;
         }
         else if(allNegative(passengers, targetAttribute)){ // if all passengers from the set died
             node.setLabel("0");
             node.setLeaf(true);
+            return;
         }
         else if(attributes.length == 0){
             node.setLabel(String.valueOf(mcv(passengers, targetAttribute)));
             node.setLeaf(true);
+            return;
         }
         else{
-            //String bestAttribute = getBestSplit(); // TODO: Methode implementieren
-            String bestAttribute = attributes[0];
+            String bestAttribute = getBestSplitAttribute(passengers, attributes);
             node.setLabel(bestAttribute);
             ArrayList<Integer> possibleValues = possibleAttributeValues.get(bestAttribute);
             for(int pv : possibleValues){
@@ -106,8 +108,60 @@ public class DecisionTree {
         return Collections.max(valueCount.entrySet(), Map.Entry.comparingByValue()).getKey(); // = most common value
     }
 
-    private String getBestSplit(){
-        return null;
+    private String getBestSplitAttribute(Set<Passenger> data, String [] attributes){
+        double [] gainResults = new double[attributes.length];
+        // calculate information gain for every attribute (that is still available)
+        for(int i = 0; i < attributes.length; i++){
+            gainResults[i] = calcInformationGain(data, attributes[i]);
+        }
+        // return attribute with max information gain
+        return attributes[getMaxPosition(gainResults)];
+    }
+
+    // returns the index of the item with max value of an array
+    private int getMaxPosition(double[] arr){
+        int idx = 0;
+        double max = Double.MIN_VALUE;
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] > max){
+                max = arr[i];
+                idx = i;
+            }
+        }
+        return idx;
+    }
+
+    // calculates the entropy for a set in regard to the target attribute
+    private double calcEntropy(Set<Passenger> data, String targetAttribute){
+        double entropy = 0.0;
+        Set<Passenger> container;
+        double p;
+        for(int possValue : possibleAttributeValues.get(targetAttribute)){
+            container = createSubset(data, targetAttribute, possValue);
+            if(container.size() == 0){
+                // if no examples for value v, than p(v) = 0 --> entropy = 0 and thus doesn't change
+                continue;
+            }
+            p = (double) container.size() / (double) data.size();
+            // entropy = - SUM (p(e) * log2(p(e)))
+            entropy -= p * log2(p);
+        }
+        return entropy;
+    }
+
+    // calculates the information gain for a set
+    private double calcInformationGain(Set<Passenger> data, String attribute){
+        double sum = 0.0;
+        for(int possValue : possibleAttributeValues.get(attribute)){
+            // example set with value v for attribute attribute
+            Set<Passenger> ev = createSubset(data, attribute, possValue);
+            sum += ((double) ev.size() / (double) data.size()) * calcEntropy(ev, this.targetAttribute);
+        }
+        return calcEntropy(data, this.targetAttribute) - sum;
+    }
+
+    private double log2(double to_log){
+        return (double)(Math.log(to_log)/Math.log(2.0));
     }
 
     // creates a subset from a set with all Elements that have value as their attribute value
@@ -158,6 +212,10 @@ public class DecisionTree {
                 possAttValues.get(attribute).add(p.getAttributeValue(attribute));
             }
         }
+        ArrayList<Integer> survivedValues = new ArrayList<>();
+        survivedValues.add(0);
+        survivedValues.add(1);
+        possAttValues.put(Attribute.SURVIVED, survivedValues);
         return possAttValues;
     }
 
@@ -177,11 +235,11 @@ public class DecisionTree {
             while(!q.isEmpty()){
                 curr = q.poll();
                 branches = curr.getConditions();
-                System.out.print(curr.getLabel() + "");
-
+                System.out.print(curr.getLabel() + " ");
                 for(Condition branch : branches){
                     q2.add(branch.getSuccessor());
-                    System.out.print(branch.getCompareValue());
+                    System.out.print(" " + branch.getCompareValue()+ " ");
+                    //System.out.print(" ");
                 }
                 if(branches.size() != 0) q2.add(br);
             }
