@@ -238,8 +238,7 @@ public class DecisionTree {
                 System.out.print(curr.getLabel() + " ");
                 for(Condition branch : branches){
                     q2.add(branch.getSuccessor());
-                    System.out.print(" " + branch.getCompareValue()+ " ");
-                    //System.out.print(" ");
+                    //System.out.print(branch.getCompareValue() + " ");
                 }
                 if(branches.size() != 0) q2.add(br);
             }

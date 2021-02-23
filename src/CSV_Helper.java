@@ -27,4 +27,23 @@ public class CSV_Helper {
         }
         return trainData;
     }
+
+    public static void printTrainData(Set<Passenger> trainData){
+        System.out.println("Anzahl Passagiere gesamt: " + trainData.size());
+        Object [] d = trainData.toArray();
+        Passenger p;
+        for(int i = 0; i < trainData.size(); i++){
+            p = (Passenger) d[i];
+            System.out.println("id: " + p. getID() +
+                    "\tsurvived: " + p.getSurvived() +
+                    "\tpclass: " + p.getpClass()+
+                    "\ttitle: " + p.getTitle() +
+                    "\tsex: " + p.getSex()+
+                    "\tageGroup: " + p.getAgeGroup() +
+                    "\tSibsp: " + p.getSibSp()+
+                    "\tParch: " + p.getParch() +
+                    "\tFare: " + p.getFare()+
+                    "\tEmbarked: " + p.getEmbarked());
+        }
+    }
 }
