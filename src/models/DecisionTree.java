@@ -61,6 +61,7 @@ public class DecisionTree {
                 Set<Passenger> subsetPV = createSubset(passengers, bestAttribute, pv);
                 if(subsetPV.isEmpty()){
                     child.setLabel(String.valueOf(mcv(passengers, targetAttribute)));
+                    child.setLeaf(true);
                 }
                 else{
                     String [] remainingAttributes = removeAttributeFrom(bestAttribute, attributes);
@@ -257,7 +258,97 @@ public class DecisionTree {
      * */
     // classifies a passengers (if he/she survives or not)
     public String classify(Passenger passenger){
-        return null;
+        Node curr = rootNode;
+        List<Condition> branches;
+        while(!curr.isLeaf()) {
+            branches = curr.getConditions();
+            int pass_val = passenger.getAttributeValue(curr.getLabel());
+            Node next = null;
+            for (Condition branch : branches) {
+                if (branch.check(pass_val)) {
+                    next = branch.getSuccessor();
+                    break;
+                }
+            }
+            if(next == null){
+                return "kann nicht klassifiziert werden";
+            }
+            else{
+                curr = next;
+            }
+        }
+        return curr.getLabel();
+
+                /*if(curr.getLabel().equals(Attribute.PCLASS)){
+                    if(branch.getCompareValue() == passenger.getpClass()){
+                        System.out.println("pclass" + branch.getSuccessor());
+                        curr = branch.getSuccessor();
+                        break;
+                    }
+
+                }
+                else if(curr.getLabel().equals(Attribute.AGEGROUP)){
+                    if(branch.getCompareValue() == passenger.getAgeGroup()){
+                        System.out.println("age" + branch.getSuccessor());
+                        curr = branch.getSuccessor();
+                        break;
+                    }
+
+                }
+                else if(curr.getLabel().equals(Attribute.EMBARKED)){
+                    if(branch.getCompareValue() == passenger.getEmbarked()){
+                        System.out.println("embarked" + branch.getSuccessor());
+                        curr = branch.getSuccessor();
+                        break;
+                    }
+
+                }
+                else if(curr.getLabel().equals(Attribute.FARE)){
+                    if(branch.getCompareValue() == passenger.getFare()){
+                        System.out.println("fare" + branch.getSuccessor());
+                        curr = branch.getSuccessor();
+                        break;
+                    }
+
+                }
+                else if(curr.getLabel().equals(Attribute.PARCH)){
+                    if(branch.getCompareValue() == passenger.getParch()){
+                        System.out.println("parch" + branch.getSuccessor());
+                        curr = branch.getSuccessor();
+                        break;
+                    }
+
+                }
+                else if(curr.getLabel().equals(Attribute.SEX)){
+                    if(branch.getCompareValue() == passenger.getSex()){
+                        System.out.println("sex" + branch.getSuccessor());
+                        curr = branch.getSuccessor();
+                        break;
+                    }
+
+                }
+                else if(curr.getLabel().equals(Attribute.TITLE)){
+                    if(branch.getCompareValue() == passenger.getTitle()){
+                        System.out.println("title" + branch.getSuccessor());
+                        curr = branch.getSuccessor();
+                        break;
+                    }
+
+                }
+                else if(curr.getLabel().equals(Attribute.SIBSP)) {
+                    if (branch.getCompareValue() == passenger.getSibSp()) {
+                        System.out.println("sib" + branch.getSuccessor());
+                        curr = branch.getSuccessor();
+                        break;
+                    }
+                }
+                else{
+                    System.out.println(curr.getLabel());
+                }*/
+
+                /**/
+        /*System.out.println("Endknoten: " + curr.getLabel());
+        return curr.getLabel();*/
     }
 
 }
