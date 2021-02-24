@@ -1,2 +1,2 @@
 # DecisionTree_Implementation
- Implementation of a decision tree for the module "Repräsentation und Verarbeitung sicheren und unsicheren Wissens"
+ Implementation of a decision tree for the module "Knowledge representation and reasoning" of the University of Regensburg.
