@@ -1,6 +1,9 @@
 package models;
 import java.util.*;
 
+/**
+ * @author Pascal Strobel (außer classify() Methode)
+ * */
 public class DecisionTree {
 
     private final String targetAttribute;
@@ -17,13 +20,9 @@ public class DecisionTree {
         // Map that contains all possible Values for each attribute
     }
 
-    public Node getRootNode(){
-        return this.rootNode;
-    }
-
-    /**
-     * Methods for training the decision tree
-     * */
+    /*
+     * Method for training the decision tree
+     */
     public void train(Set<Passenger> data){
         possibleAttributeValues = getPossibleAttributeValues(data);
         long timeStart = System.currentTimeMillis();
@@ -221,9 +220,9 @@ public class DecisionTree {
     }
 
 
-    /**
+    /*
      * Print the trained decision tree
-     * */
+     */
     public void print(){
         Queue<Node> q = new LinkedList();
         Queue<Node> q2 = new LinkedList();
@@ -251,10 +250,9 @@ public class DecisionTree {
         }
     }
 
-
-
     /**
-     * Methods for classifying data
+     * Method for classifying data
+     * @author Benedikt Zanker
      * */
     // classifies a passengers (if he/she survives or not)
     public String classify(Passenger passenger){
@@ -271,84 +269,12 @@ public class DecisionTree {
                 }
             }
             if(next == null){
-                return "kann nicht klassifiziert werden";
+                return "2"; // can not classify data
             }
             else{
                 curr = next;
             }
         }
         return curr.getLabel();
-
-                /*if(curr.getLabel().equals(Attribute.PCLASS)){
-                    if(branch.getCompareValue() == passenger.getpClass()){
-                        System.out.println("pclass" + branch.getSuccessor());
-                        curr = branch.getSuccessor();
-                        break;
-                    }
-
-                }
-                else if(curr.getLabel().equals(Attribute.AGEGROUP)){
-                    if(branch.getCompareValue() == passenger.getAgeGroup()){
-                        System.out.println("age" + branch.getSuccessor());
-                        curr = branch.getSuccessor();
-                        break;
-                    }
-
-                }
-                else if(curr.getLabel().equals(Attribute.EMBARKED)){
-                    if(branch.getCompareValue() == passenger.getEmbarked()){
-                        System.out.println("embarked" + branch.getSuccessor());
-                        curr = branch.getSuccessor();
-                        break;
-                    }
-
-                }
-                else if(curr.getLabel().equals(Attribute.FARE)){
-                    if(branch.getCompareValue() == passenger.getFare()){
-                        System.out.println("fare" + branch.getSuccessor());
-                        curr = branch.getSuccessor();
-                        break;
-                    }
-
-                }
-                else if(curr.getLabel().equals(Attribute.PARCH)){
-                    if(branch.getCompareValue() == passenger.getParch()){
-                        System.out.println("parch" + branch.getSuccessor());
-                        curr = branch.getSuccessor();
-                        break;
-                    }
-
-                }
-                else if(curr.getLabel().equals(Attribute.SEX)){
-                    if(branch.getCompareValue() == passenger.getSex()){
-                        System.out.println("sex" + branch.getSuccessor());
-                        curr = branch.getSuccessor();
-                        break;
-                    }
-
-                }
-                else if(curr.getLabel().equals(Attribute.TITLE)){
-                    if(branch.getCompareValue() == passenger.getTitle()){
-                        System.out.println("title" + branch.getSuccessor());
-                        curr = branch.getSuccessor();
-                        break;
-                    }
-
-                }
-                else if(curr.getLabel().equals(Attribute.SIBSP)) {
-                    if (branch.getCompareValue() == passenger.getSibSp()) {
-                        System.out.println("sib" + branch.getSuccessor());
-                        curr = branch.getSuccessor();
-                        break;
-                    }
-                }
-                else{
-                    System.out.println(curr.getLabel());
-                }*/
-
-                /**/
-        /*System.out.println("Endknoten: " + curr.getLabel());
-        return curr.getLabel();*/
     }
-
 }

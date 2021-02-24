@@ -1,7 +1,8 @@
 package models;
 
-import models.Node;
-
+/**
+ * @author Pascal Strobel
+ * */
 public class Condition {
 
     // successor = Nachfolger

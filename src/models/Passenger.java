@@ -5,23 +5,20 @@ import java.util.Map;
 
 public class Passenger {
 
-    /**unique Passenger ID*/
+    // unique Passenger ID
     private int id;
-    /**Map with all attributes*/
+    // Map with all attributes
     private Map<String, Integer> attributes;
 
-    /**
-    Constructor
-    */
     public Passenger(String id, String survived, String pClass, String name, String sex, String age, String sibSp, String parch, String fare, String embarked){
         this.id = Integer.parseInt(id);
         attributes = new HashMap<>();
-        /**
+        /*
          0 = not survived
          1 = survived
          */
         attributes.put(Attribute.SURVIVED, survived_2_category(survived));
-        /**
+        /*
          Price Class, categories:
          1 = 1
          2 = 2
@@ -37,12 +34,13 @@ public class Passenger {
          4 = Other (Lady, Countess, Capt, Col, Don, Dr, Major, Rev, Sir, Jonkheer, Dona)
          */
         attributes.put(Attribute.TITLE, name_2_category(name));
-        /**
+        /*
          0 = male
          1 = female
          */
         attributes.put(Attribute.SEX, sex_2_category(sex));
-        /** age organized in age groups
+        /*
+        age organized in age groups
          0 = 0-5 years (inclusive)
          1 = 6-17 years (inclusive)
          2 = 18-29 years (inclusive)
@@ -51,28 +49,28 @@ public class Passenger {
          5 = >=65 years
          */
         attributes.put(Attribute.AGEGROUP, age_2_category(age));
-        /**
+        /*
          Number of siblings/ spouses on board
          0 = no siblings/ spouses
          1 = 1 sibling/ spouse
          2 = >1 siblings/ spouses
          */
         attributes.put(Attribute.SIBSP, sibSp_2_category(sibSp));
-        /**
+        /*
          Number of parents/ children on board
          0 = no parent/ child
          1 = 1 parent/ child
          2 = >1 parents/ children
          */
         attributes.put(Attribute.PARCH, parch_2_category(parch));
-        /**
+        /*
          Number of siblings/ spouses on board
          0 = no siblings/ spouses
          1 = 1 sibling/ spouse
          2 = >1 sibling/ spouse
          */
         attributes.put(Attribute.FARE, fare_2_category(fare));
-        /**
+        /*
          Embarked (= Zustiegs-ort)
          0 = C
          1 = Q
@@ -83,7 +81,8 @@ public class Passenger {
     }
 
     /**
-    Conversion methods
+     * Conversion Methods
+    @author Adrian Sterr
     */
     private int survived_2_category(String survived){
         return Integer.parseInt(survived);
@@ -152,8 +151,8 @@ public class Passenger {
         }
     }
 
-    /**
-    Getter methods
+    /*
+    Getter Methods
      */
     public int getAttributeValue(String attribute){
         return attributes.get(attribute);

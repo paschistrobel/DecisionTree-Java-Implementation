@@ -1,8 +1,10 @@
 package models;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Pascal Strobel
+ * */
 public class Node {
     /* Name of the node
     --> if not a leaf node than it's label is the name of the attribute
