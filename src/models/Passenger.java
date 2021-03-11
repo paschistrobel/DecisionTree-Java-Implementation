@@ -25,7 +25,7 @@ public class Passenger {
          3 = 3
          */
         attributes.put(Attribute.PCLASS, pClass_2_category(pClass));
-        /**
+        /*
          Title (extracted from name models.Attribute!):
          0 = Mr
          1 = Master

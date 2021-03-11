@@ -12,6 +12,7 @@ public class Program {
         Set<Passenger> data = CSV_Helper.readData(DATA_PATH);
         // CSV_Helper.printTrainData(trainData); //show the data
 
+
         /**If you just want to classify one item, uncomment the following code and comment out the code (for cross-validation) below*/
         /*
         String [] attributes = {
@@ -22,13 +23,18 @@ public class Program {
                 Attribute.SIBSP,
                 Attribute.PARCH,
                 Attribute.FARE,
-                Attribute.EMBARKED};
+                Attribute.EMBARKED
+        };
         DecisionTree decisionTree = new DecisionTree(Attribute.SURVIVED, attributes);
         decisionTree.train(data);
         decisionTree.print();
         // 0 = not survived, 1 = survived, 2 = can't classify data
-        decisionTree.classify(new Passenger("885","0","3","Sutehall, Mr. Henry Jr","male","25","0","0","7.05","S"));
+        System.out.println(
+                "Klassifiziert als: " +
+                decisionTree.classify(new Passenger("885","0","3","Strobel, Mrs. Pascal","male","66","0","0","7.05","S"))
+        );
         */
+
 
         /**The following code is for cross-validation. If you just want to classify one item, comment out the following code and uncomment the code above*/
         Set<Passenger> [] splitData = CSV_Helper.splitData(data, NUMBER_SPLITS); // Divides data into NUMBER_SPLITS sub sets for cross validation

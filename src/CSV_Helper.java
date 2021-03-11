@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author Adrian Sterr
+ * @author Pascal Strobel
  * Helper class for reading data from the csv files
  * */
 public class CSV_Helper {

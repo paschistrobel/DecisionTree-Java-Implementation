@@ -155,6 +155,7 @@ public class DecisionTree {
         for(int possValue : possibleAttributeValues.get(attribute)){
             // example set with value v for attribute attribute
             Set<Passenger> ev = createSubset(data, attribute, possValue);
+            //      Gewichtung                                      Entropie von ev
             sum += ((double) ev.size() / (double) data.size()) * calcEntropy(ev, this.targetAttribute);
         }
         return calcEntropy(data, this.targetAttribute) - sum;
@@ -235,10 +236,10 @@ public class DecisionTree {
             while(!q.isEmpty()){
                 curr = q.poll();
                 branches = curr.getConditions();
-                System.out.print(curr.getLabel() + " ");
+                System.out.print(" " + curr.getLabel());
                 for(Condition branch : branches){
                     q2.add(branch.getSuccessor());
-                    //System.out.print(branch.getCompareValue() + " ");
+                    System.out.print(branch.getCompareValue());
                 }
                 if(branches.size() != 0) q2.add(br);
             }
