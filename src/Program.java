@@ -1,16 +1,27 @@
 import models.*;
 import java.util.*;
 
-/**
- * @author Pascal Strobel
- * */
 public class Program {
     public static void main(String [] args){
         final String DATA_PATH = "src/data/train.csv";
-        final int NUMBER_SPLITS = 10;
-        // Read CSV data
-        Set<Passenger> data = CSV_Helper.readData(DATA_PATH);
-        // CSV_Helper.printTrainData(trainData); //show the data
+        final int NUMBER_SPLITS = 10; // number of data splits for cross validation
+        Set<Passenger> data = CSV_Helper.readData(DATA_PATH); // read in data from csv file
+
+        String [] trainAttributes = { // Attributes the decisionTree should be trained on
+                Attribute.PCLASS,
+                Attribute.TITLE,
+                Attribute.SEX,
+                Attribute.AGEGROUP,
+                Attribute.SIBSP,
+                Attribute.PARCH,
+                Attribute.FARE,
+                Attribute.EMBARKED
+        };
+        String predictionAttribute = Attribute.SURVIVED; // decisionTree predicts value of predictionAttribute when classifying a data point
+
+        CrossValidation validator = new CrossValidation(data, 10);
+        validator.crossValidate();
+
 
 
         /**If you just want to classify one item, uncomment the following code and comment out the code (for cross-validation) below*/
@@ -37,7 +48,7 @@ public class Program {
 
 
         /**The following code is for cross-validation. If you just want to classify one item, comment out the following code and uncomment the code above*/
-        Set<Passenger> [] splitData = CSV_Helper.splitData(data, NUMBER_SPLITS); // Divides data into NUMBER_SPLITS sub sets for cross validation
+        /*Set<Passenger> [] splitData = CSV_Helper.splitData(data, NUMBER_SPLITS); // Divides data into NUMBER_SPLITS sub sets for cross validation
         Set<Passenger> trainData;
         Set<Passenger> testData;
         String [] attributes = {
@@ -78,6 +89,6 @@ public class Program {
             avg_precision += precisions[i];
         }
         avg_precision /= NUMBER_SPLITS;
-        System.out.println("\nDURCHSCHNITTLICHE PRÄZISION (CROSS-VALIDATION): " + avg_precision);
+        System.out.println("\nDURCHSCHNITTLICHE PRÄZISION (CROSS-VALIDATION): " + avg_precision);*/
     }
 }

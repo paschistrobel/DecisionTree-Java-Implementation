@@ -10,6 +10,10 @@ public class Passenger {
     // Map with all attributes
     private Map<String, Integer> attributes;
 
+    public Passenger(String[] ... args){
+
+    }
+
     public Passenger(String id, String survived, String pClass, String name, String sex, String age, String sibSp, String parch, String fare, String embarked){
         this.id = Integer.parseInt(id);
         attributes = new HashMap<>();
@@ -80,10 +84,6 @@ public class Passenger {
         attributes.put(Attribute.EMBARKED, embarked_2_category(embarked));
     }
 
-    /**
-     * Conversion Methods
-    @author Adrian Sterr
-    */
     private int survived_2_category(String survived){
         return Integer.parseInt(survived);
     }
@@ -151,40 +151,7 @@ public class Passenger {
         }
     }
 
-    /*
-    Getter Methods
-     */
     public int getAttributeValue(String attribute){
         return attributes.get(attribute);
-    }
-    public int getID() {
-        return this.id;
-    }
-    public int getSurvived() {
-        return attributes.get(Attribute.SURVIVED);
-    }
-    public int getpClass() {
-        return attributes.get(Attribute.PCLASS);
-    }
-    public int getTitle() {
-        return attributes.get(Attribute.TITLE);
-    }
-    public int getSex() {
-        return attributes.get(Attribute.SEX);
-    }
-    public int getAgeGroup(){
-        return attributes.get(Attribute.AGEGROUP);
-    }
-    public int getSibSp() {
-        return attributes.get(Attribute.SIBSP);
-    }
-    public int getParch() {
-        return attributes.get(Attribute.PARCH);
-    }
-    public int getFare() {
-        return attributes.get(Attribute.FARE);
-    }
-    public int getEmbarked() {
-        return attributes.get(Attribute.EMBARKED);
     }
 }

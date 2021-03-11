@@ -1,23 +1,19 @@
 package models;
 import java.util.*;
 
-/**
- * @author Pascal Strobel (außer classify() Methode)
- * */
 public class DecisionTree {
 
-    private final String targetAttribute;
     private Node rootNode;
-    private String [] attributeList;
-    private Map<String, ArrayList<Integer>> possibleAttributeValues;
+    private final String targetAttribute; // target attribute is the attribute we want to predict when classifying
+    private String [] trainAttributes; // attributes by which the tree classifies data
+    private Map<String, ArrayList<Integer>> possibleAttributeValues; // values that each attribute can have
 
-    public DecisionTree(String targetAttribute, String [] attributeList){
+    public DecisionTree(String targetAttribute, String [] trainAttributes){
         this.rootNode = new Node();
         // attribute that the model is trained for to predict the value --> SURVIVED in our case
         this.targetAttribute = targetAttribute;
         // List with attributes that the data should be trained on
-        this.attributeList = attributeList;
-        // Map that contains all possible Values for each attribute
+        this.trainAttributes = trainAttributes;
     }
 
     /*
@@ -26,25 +22,32 @@ public class DecisionTree {
     public void train(Set<Passenger> data){
         possibleAttributeValues = getPossibleAttributeValues(data);
         long timeStart = System.currentTimeMillis();
-        train(this.rootNode, data, this.targetAttribute, this.attributeList);
-        System.out.println("Trainingsdauer: " + (System.currentTimeMillis() - timeStart) + " ms");
+        train(this.rootNode, data, this.trainAttributes);
+        long duration = System.currentTimeMillis() - timeStart;
+        // System.out.println("Duration of training: " + duration + " ms");
     }
 
     // Overload method
-    public void train(Node node, Set<Passenger> passengers, String targetAttribute, String[] attributes){
-        /**Abbruch-/ Endbedingungen*/
-        if(allPositive(passengers, targetAttribute)){ // if all passengers from the set survived
+    public void train(Node node, Set<Passenger> passengers, String[] attributes){
+        /**
+        if(isHomogeneous(passengers, targetAttribute)){
+            //node.setLabel(getValue for targetAttribute);
+            node.setLeaf(true);
+            return;
+        }
+         */
+        if(allPositive(passengers, this.targetAttribute)){ // if all passengers from the set survived
             node.setLabel("1");
             node.setLeaf(true);
             return;
         }
-        else if(allNegative(passengers, targetAttribute)){ // if all passengers from the set died
+        else if(allNegative(passengers, this.targetAttribute)){ // if all passengers from the set died
             node.setLabel("0");
             node.setLeaf(true);
             return;
         }
         else if(attributes.length == 0){
-            node.setLabel(String.valueOf(mcv(passengers, targetAttribute)));
+            node.setLabel(String.valueOf(mcv(passengers, this.targetAttribute)));
             node.setLeaf(true);
             return;
         }
@@ -59,12 +62,12 @@ public class DecisionTree {
                 node.addCondition(c);
                 Set<Passenger> subsetPV = createSubset(passengers, bestAttribute, pv);
                 if(subsetPV.isEmpty()){
-                    child.setLabel(String.valueOf(mcv(passengers, targetAttribute)));
+                    child.setLabel(String.valueOf(mcv(passengers, this.targetAttribute)));
                     child.setLeaf(true);
                 }
                 else{
-                    String [] remainingAttributes = removeAttributeFrom(bestAttribute, attributes);
-                    train(child, subsetPV, targetAttribute, remainingAttributes);
+                    String [] remainingAttributes = removeAttribute(bestAttribute, attributes);
+                    train(child, subsetPV, remainingAttributes);
                 }
             }
         }
@@ -93,6 +96,11 @@ public class DecisionTree {
                 return false;
             }
         }
+        return true;
+    }
+
+    // checks if all data is homogeneous regarding in terms of their values for attribute attribute
+    private boolean isHomogeneous(Set<Passenger> data, String attribute){
         return true;
     }
 
@@ -151,18 +159,20 @@ public class DecisionTree {
 
     // calculates the information gain for a set
     private double calcInformationGain(Set<Passenger> data, String attribute){
-        double sum = 0.0;
+        double postEntropy = 0.0; // entropy that will emerge when splitting on attribute attribute
         for(int possValue : possibleAttributeValues.get(attribute)){
-            // example set with value v for attribute attribute
-            Set<Passenger> ev = createSubset(data, attribute, possValue);
-            //      Gewichtung                                      Entropie von ev
-            sum += ((double) ev.size() / (double) data.size()) * calcEntropy(ev, this.targetAttribute);
+            // subset for the data with value v for attribute attribute
+            Set<Passenger> subset_v = createSubset(data, attribute, possValue);
+            double weighting = (double) subset_v.size() / (double) data.size();
+            double subsetEntropy = calcEntropy(subset_v, this.targetAttribute);
+            postEntropy += weighting * subsetEntropy;
         }
-        return calcEntropy(data, this.targetAttribute) - sum;
+        double preEntropy = calcEntropy(data, this.targetAttribute); // entropy before splitting on attribute attribute
+        return preEntropy - postEntropy;
     }
 
     private double log2(double to_log){
-        return (double)(Math.log(to_log)/Math.log(2.0));
+        return Math.log(to_log)/Math.log(2.0);
     }
 
     // creates a subset from a set with all Elements that have value as their attribute value
@@ -179,7 +189,7 @@ public class DecisionTree {
         return subset;
     }
 
-    private String[] removeAttributeFrom(String attribute, String [] attributes){
+    private String[] removeAttribute(String attribute, String [] attributes){
         try{
             String [] res = new String[attributes.length-1];
             int j = 0;
@@ -199,14 +209,14 @@ public class DecisionTree {
 
     private HashMap<String, ArrayList<Integer>> getPossibleAttributeValues(Set<Passenger> data){
         HashMap<String, ArrayList<Integer>> possAttValues = new HashMap<>();
-        for(String attribute : attributeList){
+        for(String attribute : trainAttributes){
             possAttValues.put(attribute, new ArrayList<>());
         }
         Object [] dataArr = data.toArray();
         Passenger p;
         for(Object o : dataArr){
             p = (Passenger) o;
-            for(String attribute : attributeList){
+            for(String attribute : trainAttributes){
                 if(possAttValues.get(attribute).contains(p.getAttributeValue(attribute))){
                     continue;
                 }
@@ -251,11 +261,7 @@ public class DecisionTree {
         }
     }
 
-    /**
-     * Method for classifying data
-     * @author Benedikt Zanker
-     * */
-    // classifies a passengers (if he/she survives or not)
+    // classifies a single data point
     public String classify(Passenger passenger){
         Node curr = rootNode;
         List<Condition> branches;
