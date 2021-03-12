@@ -1,7 +1,5 @@
-import models.Attribute;
 import models.DecisionTree;
 import models.Passenger;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,14 +7,17 @@ public class CrossValidation {
 
     private Set<Passenger> [] splitData;
     private final int NUMBER_OF_SPLITS;
+    private String[] trainAttributes;
+    private String targetAttribute;
 
-    public CrossValidation(Set<Passenger> data, int numberOfSplits){
+    public CrossValidation(Set<Passenger> data, int numberOfSplits, String [] trainAttributes, String targetAttribute){
         this.splitData = splitData(data, numberOfSplits);
         this.NUMBER_OF_SPLITS = numberOfSplits;
+        this.trainAttributes = trainAttributes;
+        this.targetAttribute = targetAttribute;
     }
 
     private Set<Passenger>[] splitData(Set<Passenger> data, int numberSplits){
-        int splitSize = data.size() / numberSplits;
         Set<Passenger> [] splitSets = new Set[numberSplits];
         for(int i = 0; i < splitSets.length ; i++){
             splitSets[i] = new HashSet<>();
@@ -36,16 +37,6 @@ public class CrossValidation {
     }
 
     public double crossValidate(){
-        String [] attributes = {
-                Attribute.PCLASS,
-                Attribute.TITLE,
-                Attribute.SEX,
-                Attribute.AGEGROUP,
-                Attribute.SIBSP,
-                Attribute.PARCH,
-                Attribute.FARE,
-                Attribute.EMBARKED
-        };
         double precisions[] = new double[NUMBER_OF_SPLITS];
         Set<Passenger> trainData, testData;
         for(int i = 0; i < NUMBER_OF_SPLITS; i++){
@@ -54,12 +45,12 @@ public class CrossValidation {
             testData = splitData[i];
             trainData = mergeAllExceptIndex(splitData, i);
             // create decision tree based on the train data
-            DecisionTree decisionTree = new DecisionTree(Attribute.SURVIVED, attributes);
+            DecisionTree decisionTree = new DecisionTree(targetAttribute, trainAttributes);
             decisionTree.train(trainData);
-            //decisionTree.print();
+            decisionTree.print();
             for(Passenger p : testData){
                 // decisionTree.classify: 0 = not survived, 1 = survived, 2 = can not classify data
-                if(Integer.parseInt(decisionTree.classify(p)) == p.getAttributeValue(Attribute.SURVIVED)) correct++;
+                if(Integer.parseInt(decisionTree.classify(p)) == p.getAttributeValue(targetAttribute)) correct++;
                 else incorrect++;
             }
             //System.out.println("Korrekt klassifiziert: " + correct + "\nInkorrekt klassifiziert: " + incorrect);

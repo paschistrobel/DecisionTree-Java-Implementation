@@ -16,26 +16,15 @@ public class DecisionTree {
         this.trainAttributes = trainAttributes;
     }
 
-    /*
-     * Method for training the decision tree
-     */
     public void train(Set<Passenger> data){
         possibleAttributeValues = getPossibleAttributeValues(data);
         long timeStart = System.currentTimeMillis();
         train(this.rootNode, data, this.trainAttributes);
         long duration = System.currentTimeMillis() - timeStart;
-        // System.out.println("Duration of training: " + duration + " ms");
+        System.out.println("Duration of training: " + duration + " ms");
     }
 
-    // Overload method
     public void train(Node node, Set<Passenger> passengers, String[] attributes){
-        /**
-        if(isHomogeneous(passengers, targetAttribute)){
-            //node.setLabel(getValue for targetAttribute);
-            node.setLeaf(true);
-            return;
-        }
-         */
         if(allPositive(passengers, this.targetAttribute)){ // if all passengers from the set survived
             node.setLabel("1");
             node.setLeaf(true);
@@ -99,11 +88,6 @@ public class DecisionTree {
         return true;
     }
 
-    // checks if all data is homogeneous regarding in terms of their values for attribute attribute
-    private boolean isHomogeneous(Set<Passenger> data, String attribute){
-        return true;
-    }
-
     // returns the most common value from a the column "attribute" of a data set "data"
     private int mcv(Set<Passenger> data, String attribute){
         Object[] dataArr = data.toArray();
@@ -113,7 +97,8 @@ public class DecisionTree {
             p = (Passenger) dataArr[i];
             valueCount.merge(p.getAttributeValue(attribute), 1, Integer::sum);
         }
-        return Collections.max(valueCount.entrySet(), Map.Entry.comparingByValue()).getKey(); // = most common value
+        // return value with max occurrences (= mcv)
+        return Collections.max(valueCount.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 
     private String getBestSplitAttribute(Set<Passenger> data, String [] attributes){
@@ -126,7 +111,7 @@ public class DecisionTree {
         return attributes[getMaxPosition(gainResults)];
     }
 
-    // returns the index of the item with max value of an array
+    // returns index of the maximum
     private int getMaxPosition(double[] arr){
         int idx = 0;
         double max = Double.MIN_VALUE;
@@ -139,20 +124,19 @@ public class DecisionTree {
         return idx;
     }
 
-    // calculates the entropy for a set in regard to the target attribute
-    private double calcEntropy(Set<Passenger> data, String targetAttribute){
+    // calculates the entropy for a set in regard to the attribute attribute
+    private double calcEntropy(Set<Passenger> data, String attribute){
         double entropy = 0.0;
-        Set<Passenger> container;
-        double p;
-        for(int possValue : possibleAttributeValues.get(targetAttribute)){
-            container = createSubset(data, targetAttribute, possValue);
-            if(container.size() == 0){
-                // if no examples for value v, than p(v) = 0 --> entropy = 0 and thus doesn't change
-                continue;
+        Set<Passenger> subset;
+        double p; // probability of event e
+        for(int possValue : possibleAttributeValues.get(attribute)){
+            subset = createSubset(data, attribute, possValue);
+            // if no examples for possValue, than p(v) = 0 --> entropy = 0 and thus doesn't change
+            if(subset.size() > 0){
+                p = (double) subset.size() / (double) data.size();
+                // entropy = - SUM (p(e) * log2(p(e)))
+                entropy -= p * log2(p);
             }
-            p = (double) container.size() / (double) data.size();
-            // entropy = - SUM (p(e) * log2(p(e)))
-            entropy -= p * log2(p);
         }
         return entropy;
     }
@@ -171,8 +155,8 @@ public class DecisionTree {
         return preEntropy - postEntropy;
     }
 
-    private double log2(double to_log){
-        return Math.log(to_log)/Math.log(2.0);
+    private double log2(double x){
+        return Math.log(x)/Math.log(2.0);
     }
 
     // creates a subset from a set with all Elements that have value as their attribute value
@@ -191,16 +175,16 @@ public class DecisionTree {
 
     private String[] removeAttribute(String attribute, String [] attributes){
         try{
-            String [] res = new String[attributes.length-1];
+            String [] remainingAttributes = new String[attributes.length-1];
             int j = 0;
             for(int i = 0; i < attributes.length; i++){
                 if(attributes[i].equals(attribute)){
                     continue;
                 }
-                res[j] = attributes[i];
+                remainingAttributes[j] = attributes[i];
                 j++;
             }
-            return res;
+            return remainingAttributes;
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -217,19 +201,18 @@ public class DecisionTree {
         for(Object o : dataArr){
             p = (Passenger) o;
             for(String attribute : trainAttributes){
-                if(possAttValues.get(attribute).contains(p.getAttributeValue(attribute))){
-                    continue;
+                if(!possAttValues.get(attribute).contains(p.getAttributeValue(attribute))){
+                    possAttValues.get(attribute).add(p.getAttributeValue(attribute));
                 }
-                possAttValues.get(attribute).add(p.getAttributeValue(attribute));
             }
         }
+        // survived values added separately
         ArrayList<Integer> survivedValues = new ArrayList<>();
         survivedValues.add(0);
         survivedValues.add(1);
         possAttValues.put(Attribute.SURVIVED, survivedValues);
         return possAttValues;
     }
-
 
     /*
      * Print the trained decision tree
@@ -267,10 +250,10 @@ public class DecisionTree {
         List<Condition> branches;
         while(!curr.isLeaf()) {
             branches = curr.getConditions();
-            int pass_val = passenger.getAttributeValue(curr.getLabel());
+            int compareValue = passenger.getAttributeValue(curr.getLabel());
             Node next = null;
             for (Condition branch : branches) {
-                if (branch.check(pass_val)) {
+                if (branch.check(compareValue)) {
                     next = branch.getSuccessor();
                     break;
                 }

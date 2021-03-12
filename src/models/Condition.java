@@ -1,8 +1,5 @@
 package models;
 
-/**
- * @author Pascal Strobel
- * */
 public class Condition {
 
     // successor = Nachfolger
