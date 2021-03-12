@@ -19,7 +19,7 @@ public class CSV_Helper {
         }
     }
 
-    public static Set<Passenger> readData(String filePath){
+    public static Set<Passenger> readTrainData(String filePath){
         Set<Passenger> data = new HashSet<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line = br.readLine(); // remove first heading line
@@ -27,6 +27,25 @@ public class CSV_Helper {
                 String[] values = line.split(SEPARATOR);
                 try{
                     Passenger p = new Passenger(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
+                    data.add(p);
+                }catch(IndexOutOfBoundsException e){
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public static Set<Passenger> readTestData(String filePath){
+        Set<Passenger> data = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line = br.readLine(); // remove first heading line
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(SEPARATOR);
+                try{
+                    Passenger p = new Passenger(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
                     data.add(p);
                 }catch(IndexOutOfBoundsException e){
                     e.printStackTrace();

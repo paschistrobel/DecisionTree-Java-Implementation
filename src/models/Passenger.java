@@ -10,11 +10,17 @@ public class Passenger {
     // Map with all attributes
     private Map<String, Integer> attributes;
 
+    //constructor for train data
     public Passenger(String id, String survived, String pClass, String name, String sex, String age, String sibSp, String parch, String fare, String embarked){
-        this.id = Integer.parseInt(id);
-        attributes = new HashMap<>();
+        this(id, pClass, name, sex, age, sibSp, parch, fare, embarked);
         /*0 = not survived, 1 = survived*/
         attributes.put(Attribute.SURVIVED, survived_2_category(survived));
+    }
+
+    //constructor for test data
+    public Passenger(String id, String pClass, String name, String sex, String age, String sibSp, String parch, String fare, String embarked){
+        this.id = Integer.parseInt(id);
+        attributes = new HashMap<>();
         /*Price Class, categories: 1 = 1, 2 = 2, 3 = 3*/
         attributes.put(Attribute.PCLASS, pClass_2_category(pClass));
         /*Title (extracted from name models.Attribute!): 0 = Mr, 1 = Master, 2 = Mrs, Mme, 3 = Miss, Mlle, Ms, 4 = Other (Lady, Countess, Capt, Col, Don, Dr, Major, Rev, Sir, Jonkheer, Dona)*/
@@ -88,6 +94,7 @@ public class Passenger {
     }
 
     private int fare_2_category(String fare){
+        if(fare.isEmpty()) return 3;
         double number = Double.parseDouble(fare);
         if (number <= 7.91) return 0;
         else if (number <= 14.454) return 1;

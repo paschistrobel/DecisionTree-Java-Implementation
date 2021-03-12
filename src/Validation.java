@@ -1,39 +1,25 @@
 import models.DecisionTree;
 import models.Passenger;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CrossValidation {
+public class Validation {
 
     private Set<Passenger> [] splitData;
     private final int NUMBER_OF_SPLITS;
     private String[] trainAttributes;
     private String targetAttribute;
 
-    public CrossValidation(Set<Passenger> data, int numberOfSplits, String [] trainAttributes, String targetAttribute){
+    public Validation(Set<Passenger> data, int numberOfSplits, String [] trainAttributes, String targetAttribute){
         this.splitData = splitData(data, numberOfSplits);
         this.NUMBER_OF_SPLITS = numberOfSplits;
         this.trainAttributes = trainAttributes;
         this.targetAttribute = targetAttribute;
-    }
-
-    private Set<Passenger>[] splitData(Set<Passenger> data, int numberSplits){
-        Set<Passenger> [] splitSets = new Set[numberSplits];
-        for(int i = 0; i < splitSets.length ; i++){
-            splitSets[i] = new HashSet<>();
-        }
-        Object [] data_arr = data.toArray();
-        Passenger p;
-        int i = 0;
-        for(Object o : data_arr){
-            p = (Passenger) o;
-            splitSets[i].add(p);
-            i++;
-            if(i >= numberSplits){
-                i = 0;
-            }
-        }
-        return splitSets;
     }
 
     public double crossValidate(){
@@ -60,6 +46,34 @@ public class CrossValidation {
         double avgPrecision = average(precisions);
         System.out.println("\nDURCHSCHNITTLICHE PRÄZISION (CROSS-VALIDATION): " + avgPrecision);
         return avgPrecision;
+    }
+
+    // creates csv file "evaluation.csv" with 2 columns (PassengerID, classifiedValue)
+    public void evaluateKaggleTestData(DecisionTree decisionTree, Set<Passenger> testData){
+        try {
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private Set<Passenger>[] splitData(Set<Passenger> data, int numberSplits){
+        Set<Passenger> [] splitSets = new Set[numberSplits];
+        for(int i = 0; i < splitSets.length ; i++){
+            splitSets[i] = new HashSet<>();
+        }
+        Object [] data_arr = data.toArray();
+        Passenger p;
+        int i = 0;
+        for(Object o : data_arr){
+            p = (Passenger) o;
+            splitSets[i].add(p);
+            i++;
+            if(i >= numberSplits){
+                i = 0;
+            }
+        }
+        return splitSets;
     }
 
     private double average(double [] nums){
