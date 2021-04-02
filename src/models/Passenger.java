@@ -116,4 +116,8 @@ public class Passenger {
     public int getAttributeValue(String attribute){
         return attributes.get(attribute);
     }
+
+    public int getId(){
+        return this.id;
+    }
 }

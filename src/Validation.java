@@ -1,3 +1,4 @@
+import models.Attribute;
 import models.DecisionTree;
 import models.Passenger;
 
@@ -51,7 +52,17 @@ public class Validation {
     // creates csv file "evaluation.csv" with 2 columns (PassengerID, classifiedValue)
     public void evaluateKaggleTestData(DecisionTree decisionTree, Set<Passenger> testData){
         try {
-
+            PrintWriter writer = new PrintWriter(new File("src/data/result.csv"));
+            // append header line to csv file (see kaggle requirements)
+            writer.write("PassengerID,Survived\n");
+            // append each classification result
+            for(Passenger p : testData){
+                String line = String.valueOf(p.getId()) + ",";
+                line += decisionTree.classify(p);
+                line += "\n";
+                writer.write(line);
+            }
+            writer.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
