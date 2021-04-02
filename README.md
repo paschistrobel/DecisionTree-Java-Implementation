@@ -35,8 +35,8 @@ The recursive algorithm consists of two main steps. The first three if/else-if b
 
 ### Detailled explanation
 The algorithm is best explained when it's visualized with an example. Therefore let's assume we have the following data: 
-| ID | Sex | PriceClass | Embarked | Survived |
-|:--:|:---:|:----------:|:--------:|:--------:|
+| ID | Sex | PriceClass | Embarked | Survived | > fasdtes
+|:--:|:---:|:----------:|:--------:|:--------:| > fdsjfaf
 |1   |m    |1           |C         |1         |
 |2   |m    |2           |Q         |0         |
 |3   |f    |1           |Q         |1         |
