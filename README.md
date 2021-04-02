@@ -6,8 +6,8 @@ The classifier achieves an accuracy of **0.8227 with a 10-fold cross-validation*
 ## Algorithm
 The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [[2]](#references). Pseudocode and a detailed explanation of it is provided in the following sections.
 1. [Pseudocode](#pseudocode)
-2. [C4.5 Explanation](#c4.5-detailled-explanation)
-  2.1 [MCV](#mcv-(most-common-value))
+2. [C4.5 Explanation](#detailled-explanation)
+  2.1 [MCV](#mcv)
   2.2 [Entropy](#entropy)
   2.3 [Information gain](#information-gain)
 
@@ -33,8 +33,8 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
 ```
 The recursive algorithm consists of two main steps. The first three if/else-if blocks form the termination conditions for the algorithm. The else block first determines the best attribute to split the remaining data on and then recursively calls the train method.
 
-### C4.5 detailled explanation
-#### MCV (most common value)
+### Detailled explanation
+#### MCV
 #### Entropy
 #### Information gain
 
