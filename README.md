@@ -47,11 +47,11 @@ The algorithm is best explained when it's visualized with an example. Therefore,
 |8   |m    |1           |Q         |1         |
 |9   |m    |2           |Q         |0         |
 |10  |m    |2           |C         |1         |
-> ID: Unique identifier for a passenger. **The ID does not count as a passenger's attribute and thus is not relevant for the algorithm**. 
-> Sex: either male (m) or female (f)
-> PriceClass: Price class of the passenger's ticket; either 1, 2 or 3
-> Embarked: Location where passenger embarked; either Cherbourg (C), Queenstown (Q) or Southampton (S)
-> Survived: **Target attribute; The value to be predicted for unknown data;** either survived (1) or not survived (0)
+> ID: Unique identifier for a passenger. **The ID does not count as a passenger's attribute and thus is not relevant for the algorithm**.<br/>
+> Sex: either male (m) or female (f)<br/>
+> PriceClass: Price class of the passenger's ticket; either 1, 2 or 3<br/>
+> Embarked: Location where passenger embarked; either Cherbourg (C), Queenstown (Q) or Southampton (S)<br/>
+> Survived: **Target attribute; The value to be predicted for unknown data;** either survived (1) or not survived (0)<br/>
 #### MCV
 #### Entropy
 #### Information gain
