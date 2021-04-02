@@ -4,7 +4,7 @@ An intuitive Java implementation (built from the very bottom) for a Decision Tre
 The classifier achieves an accuracy of 0.8227 with a 10-fold cross-validation and an accuracy of 0.7249 with the Kaggle test data set.
 
 ## Algorithm
-The implementation is based on the C4.5 algorithm developed by Ross Quinlan [2]. The following pseudocode provides an overview of the algorithm:
+The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [2]. The following pseudocode provides an overview of the algorithm:
 ```
 train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
    if all EXAMPLES positiv
