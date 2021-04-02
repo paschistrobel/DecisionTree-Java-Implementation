@@ -26,5 +26,5 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
 ```
 
 ## References
-[1] https://www.kaggle.com/c/titanic 
+[1] https://www.kaggle.com/c/titanic<br/>
 [2] https://www.rulequest.com/Personal/
