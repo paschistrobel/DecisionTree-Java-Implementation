@@ -5,13 +5,13 @@ The classifier achieves an accuracy of **0.8227 with a 10-fold cross-validation*
 
 ## Algorithm
 The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [[2]](#references). Pseudocode and a detailed explanation of it is provided in the following sections.
-1. [Pseudocode](#1. pseudocode)
+1. [Pseudocode](#pseudocode)
 2. [C4.5 Explanation](#detailled-explanation)  
   2.1 [MCV](#mcv)  
   2.2 [Entropy](#entropy)  
   2.3 [Information gain](#information-gain)  
 
-### 1. Pseudocode
+### Pseudocode
 ```
 train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
    if all EXAMPLES positiv
@@ -34,6 +34,19 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
 The recursive algorithm consists of two main steps. The first three if/else-if blocks form the termination conditions for the algorithm. The else block first determines the best attribute to split the remaining data on and then recursively calls the train method.
 
 ### Detailled explanation
+The algorithm is best explained when it's visualized with an example. Therefore let's assume we have the following data: 
+| ID | Sex | PriceClass | Embarked | Survived |
+|:--:|:---:|:----------:|:--------:|:--------:|
+|1   |m    |1           |C         |1         |
+|2   |m    |2           |Q         |0         |
+|3   |f    |1           |Q         |1         |
+|4   |f    |1           |S         |1         |
+|5   |m    |3           |S         |0         |
+|6   |m    |2           |Q         |1         |
+|7   |f    |3           |C         |1         |
+|8   |m    |1           |Q         |1         |
+|9   |m    |2           |Q         |0         |
+|10  |m    |2           |C         |1         |
 #### MCV
 #### Entropy
 #### Information gain
