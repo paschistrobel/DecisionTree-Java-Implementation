@@ -14,15 +14,15 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
    else if ATTRIBUTES empty
      return root (label = mcv(TARGET_ATTRIBUTE))
    else
-     _A_ <- Element of REMAINING_ATTRIBUTES that best classifies EXAMPLES
-     _A_ is attribute for ROOT
-     For each value _v_ in _A_
-       create new child _c_v_ for _ROOT_
-       create subset _EXAMPLES_v_ for _c_v_
-       if _EXAMPLES_v_ empty
+     A <- Element of REMAINING_ATTRIBUTES that best classifies EXAMPLES
+     A is attribute for ROOT
+     For each value v in A
+       create new child c_v for ROOT
+       create subset EXAMPLES_v for c_v
+       if EXAMPLES_v empty
          create leaf (label = mcv(TARGET_ATTRIBUTE))
        else
-         train(_EXAMPLES_v_, TARGET_ATTRIBUTE, ATTRIBUTES - {A})
+         train(EXAMPLES_v, TARGET_ATTRIBUTE, ATTRIBUTES - {A})
 ```
 
 ## References
