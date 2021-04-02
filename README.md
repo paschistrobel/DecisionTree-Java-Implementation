@@ -5,13 +5,13 @@ The classifier achieves an accuracy of **0.8227 with a 10-fold cross-validation*
 
 ## Algorithm
 The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [[2]](#references). Pseudocode and a detailed explanation of it is provided in the following sections.
-1. [Pseudocode](#pseudocode)
+1. [Pseudocode](#1.-pseudocode)
 2. [C4.5 Explanation](#detailled-explanation)  
   2.1 [MCV](#mcv)  
   2.2 [Entropy](#entropy)  
   2.3 [Information gain](#information-gain)  
 
-### Pseudocode
+### 1. Pseudocode
 ```
 train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
    if all EXAMPLES positiv
