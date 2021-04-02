@@ -48,10 +48,27 @@ The algorithm is best explained when it's visualized with an example. Therefore,
 |9   |m    |2           |Q         |0         |
 |10  |m    |2           |C         |1         |
 > **ID:** Unique identifier for a passenger. **The ID does not count as a passenger's attribute and thus is not relevant for the algorithm**.<br/>
-> **Sex:** either male (m) or female (f)<br/>
+> **Sex:** Either male (m) or female (f)<br/>
 > **PriceClass:** Price class of the passenger's ticket; either 1, 2 or 3<br/>
 > **Embarked:** Location where passenger embarked; either Cherbourg (C), Queenstown (Q) or Southampton (S)<br/>
 > **Survived:** **Target attribute/ the value to be predicted for unknown data;** either survived (1) or not survived (0)<br/>
+
+So we have 10 passengers and each of them has three attributes (Sex, PriceClass, Embarked) plus one targetAttribute (Survived). 
+When looking at the pseudocode of the algorithm, it first checks whether the data is homogeneous regarding the target attribute (= Survived). 
+```
+if all EXAMPLES positiv
+  return root (label = +)
+else if all EXAMPLES negative
+  return root (label = -)
+```
+This is not case, since we do have passengers that survived and passengers that did not survive in our data. 
+Furthermore we have not looked at any attribute so far, which is why we skip the third if-statement 
+```
+else if ATTRIBUTES is empty
+  return root (label = mcv(TARGET_ATTRIBUTE))
+```
+as well. 
+
 #### MCV
 #### Entropy
 #### Information gain
