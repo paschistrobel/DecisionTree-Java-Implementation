@@ -10,6 +10,8 @@ The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan 
   * MCV (most common value)
   * Entropy
   * Information Gain
+
+### Pseudocode
 ```
 train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
    if all EXAMPLES positiv
@@ -29,8 +31,9 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
        else
          train(EXAMPLES_v, TARGET_ATTRIBUTE, ATTRIBUTES - {A})
 ```
-The key aspect of this algorithm is the step where the attribute that best classifies 
-### Explanation of the algorithm
+The recursive algorithm consists of two main steps. The first three if/else-if blocks form the termination conditions for the algorithm. The else block first determines the best attribute to split the remaining data on and then recursively calls the train method.
+
+## Explanation of the algorithm
 
 [Go to Real Cool Heading section](#real-cool-heading)
 
