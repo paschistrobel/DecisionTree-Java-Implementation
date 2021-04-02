@@ -24,6 +24,8 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
        else
          train(EXAMPLES_v, TARGET_ATTRIBUTE, ATTRIBUTES - {A})
 ```
+> mcv = most common value
+> information gain = 
 ### Explanation of the algorithm
 
 
