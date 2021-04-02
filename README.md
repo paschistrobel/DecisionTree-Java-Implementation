@@ -51,7 +51,7 @@ The algorithm is best explained when it's visualized with an example. Therefore,
 > **Sex:** either male (m) or female (f)<br/>
 > **PriceClass:** Price class of the passenger's ticket; either 1, 2 or 3<br/>
 > **Embarked:** Location where passenger embarked; either Cherbourg (C), Queenstown (Q) or Southampton (S)<br/>
-> **Survived:** **Target attribute; The value to be predicted for unknown data;** either survived (1) or not survived (0)<br/>
+> **Survived:** **Target attribute/ the value to be predicted for unknown data;** either survived (1) or not survived (0)<br/>
 #### MCV
 #### Entropy
 #### Information gain
