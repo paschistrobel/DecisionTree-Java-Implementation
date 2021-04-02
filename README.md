@@ -5,11 +5,11 @@ The classifier achieves an accuracy of **0.8227 with a 10-fold cross-validation*
 
 ## Algorithm
 The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [2]. Pseudocode and a detailed explanation of it is provided in the following sections.
-1. Pseudocode
-2. C4.5 Explanation
-  * MCV (most common value)
-  * Entropy
-  * Information Gain
+1. [Pseudocode](#pseudocode)
+2. [C4.5 Explanation](#c4.5-explanation)
+   * MCV (most common value)
+   * Entropy
+   * Information Gain
 
 ### Pseudocode
 ```
@@ -34,8 +34,6 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
 The recursive algorithm consists of two main steps. The first three if/else-if blocks form the termination conditions for the algorithm. The else block first determines the best attribute to split the remaining data on and then recursively calls the train method.
 
 ## Explanation of the algorithm
-
-[Go to Real Cool Heading section](#real-cool-heading)
 
 ## References
 [1] https://www.kaggle.com/c/titanic<br/>
