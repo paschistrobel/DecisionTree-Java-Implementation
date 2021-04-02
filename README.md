@@ -24,7 +24,10 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
        else
          train(EXAMPLES_v, TARGET_ATTRIBUTE, ATTRIBUTES - {A})
 ```
+### Explanation of the algorithm
+
 
 ## References
 [1] https://www.kaggle.com/c/titanic<br/>
 [2] https://www.rulequest.com/Personal/
+[]
