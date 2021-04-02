@@ -26,4 +26,4 @@ The implementation is based on the C4.5 algorithm developed by Ross Quinlan [2].
 
 ## References
 [1](https://www.kaggle.com/c/titanic)
-[2](https://www.rulequest.com/Personal/)
+[2]
