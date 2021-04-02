@@ -34,9 +34,9 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
 The recursive algorithm consists of two main steps. The first three if/else-if blocks form the termination conditions for the algorithm. The else block first determines the best attribute to split the remaining data on and then recursively calls the train method.
 
 ### Detailled explanation
-The algorithm is best explained when it's visualized with an example. Therefore let's assume we have the following data: 
-| ID | Sex | PriceClass | Embarked | Survived | > fasdtes
-|:--:|:---:|:----------:|:--------:|:--------:| > fdsjfaf
+The algorithm is best explained when it's visualized with an example. Therefore, let's assume we have following data for 10 titanic passengers: 
+| ID | Sex | PriceClass | Embarked | Survived |
+|:--:|:---:|:----------:|:--------:|:--------:|
 |1   |m    |1           |C         |1         |
 |2   |m    |2           |Q         |0         |
 |3   |f    |1           |Q         |1         |
@@ -47,6 +47,11 @@ The algorithm is best explained when it's visualized with an example. Therefore 
 |8   |m    |1           |Q         |1         |
 |9   |m    |2           |Q         |0         |
 |10  |m    |2           |C         |1         |
+> ID: Unique identifier for a passenger. **The ID does not count as a passenger's attribute and thus is not relevant for the algorithm**. 
+> Sex: either male (m) or female (f)
+> PriceClass: Price class of the passenger's ticket; either 1, 2 or 3
+> Embarked: Location where passenger embarked; either Cherbourg (C), Queenstown (Q) or Southampton (S)
+> Survived: **Target attribute; The value to be predicted for unknown data;** either survived (1) or not survived (0)
 #### MCV
 #### Entropy
 #### Information gain
