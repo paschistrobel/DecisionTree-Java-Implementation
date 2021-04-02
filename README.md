@@ -1,10 +1,10 @@
 # DecisionTree-Java-Implementation
-An intuitive Java implementation (built from the very bottom) for a Decision Tree classifier. The implementation is based on the "Titanic - Machine Learning from Disaster" dataset [1].
+An intuitive Java implementation (built from the very bottom) for a Decision Tree classifier. The implementation is based on the "Titanic - Machine Learning from Disaster" dataset [1](#references).
 
 The classifier achieves an accuracy of **0.8227 with a 10-fold cross-validation** and an accuracy of **0.7249 with the Kaggle test data set**.
 
 ## Algorithm
-The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [2]. Pseudocode and a detailed explanation of it is provided in the following sections.
+The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [2](#references). Pseudocode and a detailed explanation of it is provided in the following sections.
 1. [Pseudocode](#pseudocode)
 2. [C4.5 Explanation](#c4.5-explanation)
    * MCV (most common value)
