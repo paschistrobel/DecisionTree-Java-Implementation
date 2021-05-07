@@ -37,6 +37,8 @@ The recursive algorithm generates a decision tree from a set of training data us
 
 #### Information gain
 
+For a more detailed (and visualized) explanation I highly recommend watching the youtube playlist from Victor Lavrenko [[3]](#references)
 ## References
 [1] https://www.kaggle.com/c/titanic<br/>
-[2] https://www.rulequest.com/Personal/
+[2] https://www.rulequest.com/Personal/<br/>
+[3] https://www.youtube.com/playlist?list=PLBv09BD7ez_4temBw7vLA19p3tdQH6FYO
