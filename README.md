@@ -35,20 +35,20 @@ The recursive algorithm generates a decision tree from a set of training data us
 ### Detailed explanation
 #### Entropy
 The aim of the algorithm is to train a classifier with as little effort as possible and at the same time as few errors as possible. We can do this by excluding large parts of the search area or classifying large parts of the data set as quickly as possible. In the following example, the two attributes Sex and PriceClass would be differently well suited.
-![comparison of pure and impure subsets](./docs/pure_vs_impure_subsets.jpg)
+![comparison of pure and impure subsets](./docs/pure-vs-impure-subsets.jpg)
 If splitting on the gender attribute, the 24 data points would be distributed to the two classes male and female. The resulting subsets are homogeneous with regard to the target attribute (survived), which means that we don't have to train the tree any further. We can make the best possible decision here based on the training data, namely: male passengers are classified as **survived**, female passengers as **not survived**.
 If splitting on PriceClass, the decisions are not that simple. The 8 passengers in price class 1 are divided into 4 survivors and 4 non-survivors. When trying to classify a new passenger of price class 1, we could only guess the label, which is why the impure subsets have to be split up on the basis of further attributes (if there are more). The same applies to the subsets with price class 2 and price class 3.
 `In a nutshell: The optimal case when training our tree would be to obtain completely pure / homogeneous subsets when dividing them based on an attribute (here: the gender), the worst case would be completely impure / heterogeneous subsets (here: the PriceClass).`
 
 A metric to measure the uncertainty of a class in a subset of examples is entropy [[3]](#references)
-![formula of information entropy](./docs/entropy_formula.jpg)
+![formula of information entropy](./docs/entropy-formula.jpg )
 It can be interpreted as the average number of decisions (bits) needed to distinguish the positive (survived) from the negative (not survived) examples.
 The following applies to our pure subsets:
-![entropy for pure subsets](./docs/entropy_pure_subset.jpg)
+![entropy for pure subsets](./docs/entropy-pure-subset.jpg )
 And for our completely impure subsets:
-![entropy for impure subsets](./docs/entropy_impure_subset.jpg)
+![entropy for impure subsets](./docs/entropy-impure-subset.jpg )
 The course of the entropy for two possible events is also nicely illustrated in the following graphic:
-![entropy course for two possible events](./docs/Binary_entropy_plot.svg)
+![entropy course for two possible events](./docs/Binary-entropy-plot.svg)
 
 **The more certain we are in our decision, the lower the entropy. This also means that an attribute is the better the more the entropy can be reduced and the higher the `gained information`.**
 
