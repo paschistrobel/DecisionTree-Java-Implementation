@@ -48,15 +48,26 @@ The following applies to our pure subsets:<br/>
 ![entropy for pure subsets](./docs/entropy-pure-subset.JPG )<br/>
 And for our completely impure subsets:<br/>
 ![entropy for impure subsets](./docs/entropy-impure-subset.JPG )<br/>
-The course of the entropy for two possible events is also nicely illustrated in the following graphic:
+The course of the entropy for two possible events is also nicely illustrated in the following graphic:<br/>
 ![entropy course for two possible events](./docs/Binary-entropy-plot.svg)<br/>
 
 **The more certain we are in our decision, the lower the entropy. This also means that an attribute is the better the more the entropy can be reduced and the higher the `gained information`.**
 
 #### Information gain
+Entropy is only a measure of how pure a subset of an attribute is. But since several subsets arise when splitting an attribute, we have to combine the individual entropies into one value in order to be able to make an overall statement about how good the split is. The keyword here is `information gain`.<br/>
+![formula for information gain](./docs/information-gain.JPG )<br/>
 
+Information gain is nothing other than the difference in entropy before and after the split at a certain attribute. The entropy that would result from the split is additionally weighted so that subsets with more data also have more weight.<br/>
+The following applies to our two examples:
+![calculated information gain for attribute sex](./docs/information-gain-sex.JPG )<br/>
+![calculated information gain for attribute priceclass](./docs/information-gain-priceclass.JPG )<br/>
+
+The value for the information gain is between 0 and 1. The higher the value, the more certainty there is in our decision on the classification. The best attribute is therefore the one with the highest information gain.
+<br/>
+<br/>
 
 For a more detailed (and visualized) explanation I highly recommend watching the youtube playlist from Victor Lavrenko [[4]](#references).
+
 ## References
 [1] https://www.kaggle.com/c/titanic<br/>
 [2] https://www.rulequest.com/Personal/<br/>
