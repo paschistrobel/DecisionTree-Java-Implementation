@@ -58,7 +58,7 @@ Entropy is only a measure of how pure a subset of an attribute is. But since sev
 ![formula for information gain](./docs/information-gain.JPG )<br/>
 
 Information gain is nothing other than the difference in entropy before and after the split at a certain attribute. The entropy that would result from the split is additionally weighted so that subsets with more data also have more weight.<br/>
-The following applies to our two examples:
+The following applies to our two examples:<br/>
 ![calculated information gain for attribute sex](./docs/information-gain-sex.JPG )<br/>
 ![calculated information gain for attribute priceclass](./docs/information-gain-priceclass.JPG )<br/>
 
