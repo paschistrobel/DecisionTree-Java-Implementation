@@ -6,7 +6,7 @@ The classifier achieves an accuracy of **0.8227 with a 10-fold cross-validation*
 ## Algorithm
 The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [[2]](#references). Pseudocode and a detailed explanation of its main concepts is provided in the following sections.
 1. [Pseudocode](#pseudocode)
-2. [C4.5 Explanation](#detailed-explanation)   
+2. [C4.5 Main concepts](#main-concepts)   
   2.1 [Entropy](#entropy)  
   2.2 [Information gain](#information-gain)  
 
@@ -32,7 +32,7 @@ train(EXAMPLES, TARGET_ATTRIBUTE, ATTRIBUTES)
 ```
 The recursive algorithm generates a decision tree from a set of training data using the concept of (information) entropy. At each node of the tree, C4.5 chooses the attribute of the data that most effectively splits the training data into subsets. To find that "best attribute", the information gain (related to entropy but not the same) for each attribute is calculated and the one with the highest gain is chosen. The algorithm then recurses on the partitioned data subsets.
 
-### Detailed explanation
+### Main concepts
 The aim of the algorithm is to train a classifier with as little effort as possible and at the same time as few errors as possible. We can do this by excluding large parts of the search area or classifying large parts of the data set as quickly as possible. In the following example, the two attributes Sex and PriceClass would be differently well suited.<br/>
 ![comparison of pure and impure subsets](./docs/pure-vs-impure-subsets.JPG)<br/>
 If splitting on the gender attribute, the 24 data points would be distributed to the two classes male and female. The resulting subsets are homogeneous with regard to the target attribute (survived), which means that we don't have to train the tree any further. We can make the best possible decision here based on the training data, namely: male passengers are classified as `survived`, female passengers as `not survived`.
