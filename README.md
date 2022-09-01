@@ -1,7 +1,7 @@
 # DecisionTree-Java-Implementation
-An intuitive Java implementation (built from the very bottom) for a Decision Tree classifier, based on the "Titanic - Machine Learning from Disaster" dataset [[1]](#references).
+Java decision tree implementation for the the "Titanic - Machine Learning from Disaster" dataset [[1]](#references).
 
-The classifier achieves an accuracy of **0.8227 with a 10-fold cross-validation** and an accuracy of **0.7249 with the Kaggle test data set**.
+The classifier achieves an accuracy of **0.7249** on the Kaggle test data set.
 
 ## Algorithm
 The implementation is based on the **C4.5 algorithm** developed by Ross Quinlan [[2]](#references). Pseudocode and a detailed explanation of its main concepts is provided in the following sections.
@@ -37,7 +37,7 @@ The aim of the algorithm is to train a classifier with as little effort as possi
 ![comparison of pure and impure subsets](./docs/pure-vs-impure-subsets.JPG)<br/>
 If splitting on the gender attribute, the 24 data points would be distributed to the two classes male and female. The resulting subsets are homogeneous with regard to the target attribute (survived), which means that we don't have to train the tree any further. We can make the best possible decision here based on the training data, namely: male passengers are classified as `survived`, female passengers as `not survived`.
 If splitting on PriceClass, the decisions are not that simple. The 8 passengers in price class 1 are divided into 4 survivors and 4 non-survivors. When trying to classify a new passenger of price class 1, we could only guess the label, which is why the impure subsets have to be split up on the basis of further attributes (if there are more). The same applies to the subsets with price class 2 and price class 3.<br/>
-**In a nutshell: The optimal case when training our tree would be to obtain completely pure / homogeneous subsets when dividing them based on an attribute (here: the gender), the worst case would be completely impure / heterogeneous subsets (here: the PriceClass).**
+**In a nutshell: The optimal case when training the classifier would be to obtain completely pure / homogeneous subsets when dividing them based on an attribute (here: the gender), the worst case would be completely impure / heterogeneous subsets (here: the PriceClass).**
 
 
 #### Entropy
@@ -51,7 +51,7 @@ And for our completely impure subsets:<br/>
 The course of the entropy for two possible events is also nicely illustrated in the following graphic:<br/>
 ![entropy course for two possible events](./docs/Binary-entropy-plot.svg)<br/>
 
-**The more certain we are in our decision, the lower the entropy. This also means that an attribute is the better the more the entropy can be reduced and the higher the `gained information`.**
+**The more certain a decision, the lower the entropy. This also means that an attribute is the better the more the entropy can be reduced and the higher the `gained information`.**
 
 #### Information gain
 Entropy is only a measure of how pure a subset of an attribute is. But since several subsets arise when splitting an attribute, we have to combine the individual entropies into one value in order to be able to make an overall statement about how good the split is. The keyword here is `information gain`.<br/>
@@ -66,7 +66,7 @@ The value for the information gain is between 0 and 1. The higher the value, the
 <br/>
 <br/>
 
-For a more detailed (and visualized) explanation I highly recommend watching the youtube playlist from Victor Lavrenko [[4]](#references).
+A more detailed (and visualized) explanation can be found in the youtube playlist from Victor Lavrenko [[4]](#references).
 
 ## References
 [1] https://www.kaggle.com/c/titanic<br/>
